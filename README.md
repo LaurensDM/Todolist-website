@@ -2,6 +2,10 @@
 
 ***Work in progress***
 
+## How to run
+
+First run `npm install`, then run `npm run dev`
+
 ## What is it?
 
 A simple todolist website created using nextjs. Styling is done with tailwindcss.
