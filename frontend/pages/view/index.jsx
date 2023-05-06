@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 
 export default function List(){
   const [items,setItems] = useState(["guy","meh","moh"]);
-  const listApi = useList();
 
-  useEffect(() => {
-    const fetchData = async() => {
-    const data = await listApi.getById(1);
-    console.log(data)
-  }
-  fetchData();
-  },[])
+  // useEffect(() => {
+  //   const fetchData = async() => {
+  //   const data = await listApi.getById(1);
+  //   console.log(data)
+  // }
+  // fetchData();
+  // },[])
   return(
     <div className="h-screen">
       <div className="flex flex-col">

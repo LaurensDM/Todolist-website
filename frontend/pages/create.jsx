@@ -2,16 +2,11 @@ import { useCallback, useState } from "react";
 import Link from "next/link";
 import ListItem from "@/components/ListItem";
 import { useRouter } from "next/router";
+import Modal from "@/components/Modal";
 
 export default function Create() {
   const [items, setItems] = useState([]);
   const router = useRouter();
-
-  function addItem() {
-    const array = [...items];
-    array.push({ name: "", description: "" });
-    setItems(array);
-  }
 
   const deleteItem = (index) => {
     const array = items;
@@ -26,27 +21,20 @@ export default function Create() {
     setItems([...array]);
   };
 
-  const handleChangeText = (e) => {
-    const index = Number(e.target.id.substring(4));
-    console.log(e.target.id.substring(4));
-    const array = items;
-    array[index].description = e.target.value;
-    setItems([...array]);
-  };
+  function save(list){
+    const array = list.filter((item) => item.trim() !== "")
+    console.log(array);
+    setItems(array);
+  }
 
-  function submit() {
-    const listName = document.getElementById('name');
-    
-    items.forEach(element => {
-
-    })
-    console.log(items);
+  function submit(e) {
+    e.preventDefault();
   }
 
   return (
     <div className="h-screen ">
       <h1 className="text-center mt-5 mb-10 text-2xl">Create a TodoList</h1>
-      <div className="flex flex-col justify-center space-y-5">
+      <form onSubmit={submit} className="flex flex-col justify-center space-y-5">
         <div className="mx-auto space-x-3">
           <label htmlFor="name">Name</label>
           <input
@@ -54,53 +42,32 @@ export default function Create() {
             name="name"
             type="text"
             className="form-input text-violet-900  p-2 rounded "
+            required
           />
         </div>
 
-        <div className="flex flex-col mx-auto space-y-5">
+        <div className="flex flex-col mx-auto space-y-5 border-emerald-100">
           {items.map((element, index) => (
             <ListItem
               index={index}
               item={element}
               deleteItem={deleteItem}
-              handleChangeInput={handleChangeInput}
-              handleChangeText={handleChangeText}
               key={index}
             />
           ))}
 
-          <button
-            type="button"
-            className="block mx-auto px-3 py-1 rounded  bg-green-900"
-            onClick={addItem}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </button>
+          <Modal submit={save} />
           <br />
           <div className="flex justify-center">
             <button
-              type="button"
-              onClick={submit}
+              type="submit"
               className="mx-auto bg-purple-900 p-2 rounded"
             >
               Save Changes
             </button>
           </div>
         </div>
-      </div>
+      </form>
       <br />
     </div>
   );

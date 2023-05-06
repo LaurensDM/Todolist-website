@@ -1,16 +1,17 @@
-export default function ListItem({index, item,deleteItem, handleChangeInput, handleChangeText}){
+export default function ListItem({index, item,deleteItem}){
   return(<div
-    className="flex flex-col space-y-1 place-items-center"
+    className="flex flex-col space-y-1 place-items-center min-w-260"
   >
-    <div className="space-x-3">
+    <div className="space-x-3 align-items-center">
       <label htmlFor="item">{index + 1}.</label>
-      <input
+      <textarea
+        type="text"
         name="item"
         id={"item" + index}
-        type="text"
-        value={item.name}
-        className="form-input p-2 rounded text-violet-900"
-        onChange={handleChangeInput}
+        value={item}
+        className="form-textarea p-2 rounded bg-slate-400 cursor-not-allowed"
+        maxLength={128}
+        disabled
       />
       <button
         type="button"
@@ -33,12 +34,5 @@ export default function ListItem({index, item,deleteItem, handleChangeInput, han
         </svg>
       </button>
     </div>
-    <textarea
-      className=" w-full caret-violet-500 resize-x rounded-md text-violet-900"
-      placeholder="Description"
-      id={'text'+index}
-      value={item.description}
-      onChange={handleChangeText}
-    ></textarea>
   </div>)
 }
