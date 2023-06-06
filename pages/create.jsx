@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import ListItem from "@/components/ListItem";
