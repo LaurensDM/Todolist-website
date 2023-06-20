@@ -4,7 +4,7 @@ import userApi from './user';
 const prisma = new PrismaClient();
 
 async function getItems(listId) {
-    return await prisma.item.findMany ({
+    return await prisma.items.findMany ({
         where: {
             listId: listId,
         },
@@ -12,7 +12,7 @@ async function getItems(listId) {
 }
 
 async function getItemById(id) {
-    return await prisma.item.findUnique({
+    return await prisma.items.findUnique({
         where: {
             id: id,
         },
@@ -20,7 +20,7 @@ async function getItemById(id) {
 }
 
 async function createItem(data) {
-    return await prisma.item.create({
+    return await prisma.items.create({
         data: {
             ...data,
         },
@@ -28,7 +28,7 @@ async function createItem(data) {
 }
 
 async function updateItem(listId, data) {
-    return await prisma.item.update({
+    return await prisma.items.update({
         where: {
             id: id,
         },
@@ -40,7 +40,7 @@ async function updateItem(listId, data) {
 }
 
 async function deleteItem(id) {
-    return await prisma.item.delete({
+    return await prisma.items.delete({
         where: {
             id: id,
         },

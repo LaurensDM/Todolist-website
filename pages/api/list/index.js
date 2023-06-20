@@ -37,13 +37,14 @@ const createList = async (req, res) => {
 
   try {
     const session = await getSession(req, res);
-    console.log(session.user);
-    await userApi.checkUser(session.user);
-    const list = await listApi.createList(req.body)
+    const user = await userApi.checkUser(session.user);
+    const data = { ...req.body, user: { connect: { id: user.id } } };
+    const list = await listApi.createList(data)
     if (list) {
       return res.status(201).json({ list });
     } 
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: error.message });
   }
 }

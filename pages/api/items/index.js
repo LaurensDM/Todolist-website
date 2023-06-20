@@ -12,9 +12,12 @@ export default withApiAuthRequired(async function items(req, res) {
 
 const createItem = async (req, res) => {
     try {
-        const item = await itemApi.createItem(req.body);
+        const data = { description: req.body.description, list: { connect: { id: req.body.listId } } };
+        console.log(data);
+        const item = await itemApi.createItem(data);
         return res.status(201).json({ item });
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ error: error.message });
     }
 }

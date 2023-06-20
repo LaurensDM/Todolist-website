@@ -6,7 +6,7 @@ export default function Modal({submit}) {
 
   function addItem() {
     const array = [...items];
-    array.push({ name: "", description: "" });
+    array.push('');
     setItems(array);
   }
 
@@ -24,8 +24,8 @@ export default function Modal({submit}) {
   };
   return( 
 <>
-<button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-  Toggle modal
+<button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" className="mx-auto w-fit block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Add items
 </button>
 
 <div id="authentication-modal" tabIndex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">

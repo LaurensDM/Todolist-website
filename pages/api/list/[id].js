@@ -2,26 +2,27 @@ import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import listApi from "../../../helper/api/list";
 import userApi from "@/helper/api/user";
 
-const { user } = getSession(req, res);
+
 
 export default withApiAuthRequired(async function item(req, res) {
-
+    const { user } = await getSession(req, res);
 
     switch (req.method) {
         case "GET":
-            return await getList(req, res);
+            return await getList(req, res, user);
         case "PUT":
-            return await updateList(req, res);
+            return await updateList(req, res, user);
         case "DELETE":
-            return await deleteList(req, res);
+            return await deleteList(req, res, user);
         default:
             res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 });
 
-const getList = async (req, res) => {
+const getList = async (req, res, user) => {
 
     try {
+        console.log(user);
         const checkedUser = await userApi.checkUser(user);
         const list = await listApi.getListById(req.query.id);
 
@@ -38,7 +39,7 @@ const getList = async (req, res) => {
     }
 };
 
-const updateList = async (req, res) => {
+const updateList = async (req, res, user) => {
     try {
         const checkedUser = await userApi.checkUser(user);
         const list = await getList(req.query.id);
@@ -58,7 +59,7 @@ const updateList = async (req, res) => {
     }
 };
 
-const deleteList = async (req, res) => {
+const deleteList = async (req, res, user) => {
     try {
         const checkedUser = await userApi.checkUser(user);
         const list = await getList(req.query.id);

@@ -47,7 +47,7 @@ async function deleteUser(id) {
 }
 
 async function checkUser(authUser) {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             auth0Id: authUser.sub,
         },

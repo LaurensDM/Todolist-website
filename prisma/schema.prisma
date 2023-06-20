@@ -14,7 +14,7 @@ model User {
   id        String    @id @default(uuid())
   email     String    @unique
   name      String?   @db.VarChar(127)
-  auth0Id   String   @db.VarChar(127)
+  auth0Id   String   @db.VarChar(127) @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime?   
   deletedAt DateTime? 

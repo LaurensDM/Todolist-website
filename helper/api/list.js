@@ -5,7 +5,7 @@ import userApi from './user';
 const prisma = new PrismaClient();
 
 async function getListById(id) {
-    return await prisma.list.findUnique({
+    return await prisma.list.findFirst({
         where: {
             id: id,
         },
