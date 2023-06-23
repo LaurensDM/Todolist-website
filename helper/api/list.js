@@ -1,8 +1,6 @@
 import {PrismaClient} from '@prisma/client';
-import { useMemo } from 'react';
-import userApi from './user';
 
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 async function getListById(id) {
     return await prisma.list.findFirst({

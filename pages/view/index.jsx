@@ -1,23 +1,46 @@
-import useList from "@/pages/api/list";
-import { useEffect, useState } from "react";
+import Dropdown from "@/components/Dropdown";
+import { PrismaClient } from "@prisma/client";
+import { getSession } from "@auth0/nextjs-auth0";
 
-export default function List(){
-  const [items,setItems] = useState(["guy","meh","moh"]);
 
-  // useEffect(() => {
-  //   const fetchData = async() => {
-  //   const data = await listApi.getById(1);
-  //   console.log(data)
-  // }
-  // fetchData();
-  // },[])
+const prisma = new PrismaClient();
+
+
+export default function List(props){
+  const lists = props.lists;
+
   return(
     <div className="h-screen">
       <div className="flex flex-col">
-      {items.map((item) => (
-        <span className="mx-auto">{item}</span>
+      {lists.map((list) => (
+        <Dropdown list={list}/>
       ))}
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(ctx){
+  const {user} = await getSession(ctx.req, ctx.res);
+  console.log(user);
+  const dbUser = await prisma.user.findFirst({
+    where: {
+      auth0Id: user.sub
+    }
+  });
+  console.log(dbUser);
+  const lists = await prisma.list.findMany({
+    where: {
+      userId: dbUser.id
+    },
+    include: {
+      Items: true
+    }
+  });
+  console.log(lists[0].Items);
+  return {
+    props: {
+      lists: JSON.parse(JSON.stringify(lists))
+    }
+  }
 }

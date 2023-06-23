@@ -10,7 +10,7 @@ export default withApiAuthRequired(async function list(req, res) {
     case "POST":
       return await createList(req, res);
     default:
-      res.status(405).end(`Method ${req.method} Not Allowed`);
+      return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 });
 
@@ -21,16 +21,17 @@ const getList = async (req, res) => {
   try {
     const session = await getSession(req, res);
     console.log(session.user);
-    await userApi.checkUser(session.user);
-    const list = await listApi.getListsByUserId(session.user.sub);
+    const user = await userApi.checkUser(session.user);
+    const list = await listApi.getListsByUserId(user.id);
     if (list) {
       return res.status(200).json({ list });
     } else {
       return res.status(404).json({ error: "List not found" });
     }
+    
   } catch (error) {
     return res.status(500).json({ error: error.message });
-  }
+  } 
 }
 
 const createList = async (req, res) => {

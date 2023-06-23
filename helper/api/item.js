@@ -1,7 +1,7 @@
 import {PrismaClient} from '@prisma/client';
 import userApi from './user';
 
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 async function getItems(listId) {
     return await prisma.items.findMany ({
@@ -55,4 +55,10 @@ const itemApi = {
     deleteItem,
 };
 
-export default itemApi;
+export const getStaticProps = async () => {
+    return {
+        props: {
+            itemApi,
+        },
+    };
+};
