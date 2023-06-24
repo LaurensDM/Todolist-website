@@ -8,7 +8,7 @@ First run `npm install`, then run `npm run dev`
 
 ## What is it?
 
-A simple todolist website created using nextjs. Styling is done with tailwindcss.
+A simple todolist website created using nextjs, prisma and mysql. Styling is done with tailwindcss and Material UI. Auth0 provides authentication and authorization.
 
 Log in and create a todo list, or view your existing todo lists.
 
@@ -21,13 +21,16 @@ To learn how nextjs works.
 ![Homescreen](images/home.png)
 ![Create a todo](images/create.png)
 ![add items to a todo](images/modal.png)
+![view your todolists](images/view.png)
+![view your items within a todolist](images/viewExpand.png)
+![View the details of a todolist](images/detail.png)
+
 
 ## Work in progress
 
-- Currently api routes are done with a separate backend using koajs. This will be removed and api routes will be done according to nextjs documentation, in the frontend.
-- Login and logout is possible but no routes are authentication protected yet.
-- There is currently no connection to the database, so you can not actually create or view todo's.
-- The screen for viewing your todo's is not fully implemented yet.
+- More styling
+- add functionality to edit and delete button when viewing a specific list
+- remove html Modal and add MUI modal
 
 ## Future features
 
