@@ -5,8 +5,9 @@ import Link from "next/link";
 import ListItem from "@/components/ListItem";
 import { useRouter } from "next/router";
 import Modal from "@/components/Modal";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 
-export default function Create() {
+function Create() {
   const [items, setItems] = useState([]);
   const router = useRouter();
 
@@ -62,10 +63,10 @@ export default function Create() {
   }
 
   return (
-    <div className="h-screen ">
+    <div className="pt-20 px-10 mt-20">
       <h1 className="text-center mt-5 mb-10 text-2xl">Create a TodoList</h1>
-      <form onSubmit={submit} className="flex flex-col justify-center gap-12">
-        <div className=" space-x-3 flex flex-col justify-center">
+      <form onSubmit={submit} className="flex flex-col max-w-max justify-center gap-12 bg-violet-700 bg-opacity-70 py-10 sm:px-40 px-16 rounded mx-auto">
+        <div className="flex flex-col justify-center">
           <label htmlFor="name" className="text-center">Name</label>
           <input
             id="name"
@@ -77,12 +78,12 @@ export default function Create() {
           />
         </div>
 
-        <div className="space-x-3 flex flex-col justify-center">
+        <div className="flex flex-col justify-center w-full">
           <label htmlFor="description" className="text-center">Description</label>
           <textarea
             id="description"
             name="description"
-            className="form-textarea text-violet-900 rounded w-1/3 h-28 place-self-center"
+            className="form-textarea text-violet-900 rounded  h-28 place-self-center"
             placeholder="Enter a description for your list (optional)"
           />
         </div>
@@ -102,7 +103,7 @@ export default function Create() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="mx-auto bg-purple-900 p-2 rounded"
+              className="mx-auto bg-purple-950 p-2 rounded"
             >
               Save Changes
             </button>
@@ -113,3 +114,5 @@ export default function Create() {
     </div>
   );
 }
+
+export default withPageAuthRequired(Create);
